@@ -1,118 +1,147 @@
-# Semantic Dictionary Search (Classical IR Approach)
+# Semantic Dictionary Search  
+**Classical Information Retrieval–Based Dictionary System**
+
+---
 
 ## 1. Problem Definition
 
-Traditional dictionary search relies on **exact word matching** or simple prefix-based lookup. This approach fails when users do not know the exact word they are looking for but can describe its **meaning**.
+Traditional dictionary search systems rely primarily on **exact word matching** or **prefix-based lookup**. These approaches are insufficient when users do not know the exact lexical form of a word but can instead describe its **meaning**.
 
-This project aims to design and implement a **semantic dictionary search system** that retrieves words based on **meaning similarity**, not exact string matching, using **classical Information Retrieval (IR)** techniques.
+This project aims to design and implement a **semantic dictionary search system** that retrieves words based on **meaning similarity rather than string equality**, using **classical Information Retrieval (IR) techniques**.
 
 ---
 
 ## 2. Motivation
 
-This project is intentionally designed using **pre–deep learning IR techniques** to:
+This project is intentionally built **without deep learning or neural embeddings** in order to:
 
-* Understand how semantic search worked *before modern AI models*
-* Build an explainable and mathematically grounded system
-* Connect core Computer Engineering courses (Linear Algebra, Probability, Data Structures)
+- Understand how semantic search systems were designed **before modern AI models**
+- Build an **explainable, mathematically grounded** search engine
+- Strengthen the connection between core Computer Engineering courses:
+  - Linear Algebra
+  - Probability & Statistics
+  - Data Structures and Algorithms
 
-Rather than using black-box neural embeddings, the system uses **TF–IDF**, **Vector Space Model**, and **Cosine Similarity** to achieve semantic relevance.
+Instead of black-box neural representations, the system relies on **TF–IDF**, the **Vector Space Model**, and **Cosine Similarity** to achieve semantic relevance.
 
 ---
 
-## 3. Background
+## 3. Scope and Domain
 
 ### 3.1 Information Retrieval vs Machine Learning
 
-* **Information Retrieval (IR):** Uses statistical and algebraic models to rank documents
-* **Machine Learning-based Search:** Learns embeddings from data using optimization
+- **Information Retrieval (IR):**  
+  Ranks documents using statistical and algebraic models
 
-This project belongs strictly to the **classical IR** domain.
+- **Machine Learning–based Search:**  
+  Learns representations via optimization and training data
+
+This project belongs **strictly to the classical IR domain** and does not involve model training or learned embeddings.
 
 ---
 
 ## 4. System Architecture
 
-The system combines two complementary components:
+The system consists of **two complementary layers**:
 
-1. **Trie Data Structure**
+### 4.1 Trie-Based Dictionary Layer (Java)
 
-   * Used for exact match and prefix-based search
-   * Enables fast lookup and autocomplete functionality
+- Exact word lookup
+- Prefix-based autocomplete
+- High-performance retrieval using a **DLB Trie**
+- Optimized for memory efficiency and fast lookup
 
-2. **Semantic Search Engine (IR Layer)**
-
-   * Uses TF–IDF vectorization on word definitions
-   * Computes similarity between query and definitions
-
-High-level flow:
-
-```
-User Query
-   ├── Prefix / Exact Match → Trie
-   └── Free Text Query → Semantic Search Engine
-                           ├── Preprocessing
-                           ├── Vectorization (TF–IDF)
-                           └── Similarity Ranking
-```
+*(Implemented as a separate Java-based project and included as a Git submodule.)*
 
 ---
 
-## 5. Mathematical Foundation
+### 4.2 Semantic Search Engine (IR Layer – Python)
+
+- Processes word definitions as documents
+- Applies TF–IDF vectorization
+- Ranks candidate words using cosine similarity
+
+---
+
+### 4.3 High-Level Flow
+
+User Query
+
+├── Exact / Prefix Query ──▶ Trie Dictionary
+
+└── Free-Text Query ───────▶ Semantic Search Engine
+
+├── Preprocessing
+
+├── TF–IDF Vectorization
+
+└── Similarity Ranking
+
+
+---
+
+## 5. Mathematical Foundations
 
 ### 5.1 Vector Space Model
 
-Each word definition is represented as a vector in a high-dimensional space.
+Each word definition is represented as a vector in a high-dimensional space, where each dimension corresponds to a term in the vocabulary.
+
+---
 
 ### 5.2 TF–IDF
 
-* **Term Frequency (TF):** Measures importance of a term within a document
-* **Inverse Document Frequency (IDF):** Reduces weight of common terms
+- **Term Frequency (TF):** Measures the importance of a term within a document  
+- **Inverse Document Frequency (IDF):** Reduces the weight of terms that appear frequently across documents
+
+---
 
 ### 5.3 Cosine Similarity
 
-Used to measure similarity between query and definition vectors:
+Similarity between a query vector **A** and a document vector **B** is computed as:
 
 cos(θ) = (A · B) / (||A|| ||B||)
+
+
+This metric focuses on **vector orientation**, not magnitude, making it suitable for textual similarity.
 
 ---
 
 ## 6. Implementation Overview
 
-* Input data stored in **JSON format**
-* Trie nodes store references to dictionary entries
-* TF–IDF vectors are computed from definitions
-* Query is processed through the same pipeline
-* Results ranked by cosine similarity score
+- Dictionary data stored in JSON format
+- Word definitions treated as documents
+- TF–IDF vectors computed offline
+- Query processed using the same preprocessing pipeline
+- Results ranked by cosine similarity score
 
 ---
 
 ## 7. Evaluation Strategy
 
-* Manually selected test queries
-* Expected relevant words defined by the developer
-* Ranking quality observed and analyzed
+- Manually selected test queries
+- Expected relevant words defined by the developer
+- Ranking behavior analyzed qualitatively
 
-This evaluation focuses on **interpretability**, not benchmark accuracy.
+This evaluation prioritizes **interpretability and reasoning clarity**, not benchmark-based accuracy.
 
 ---
 
 ## 8. Limitations
 
-* Cannot capture deep contextual meaning
-* Sensitive to vocabulary mismatch
-* No learning or adaptation over time
+- Cannot capture deep contextual or world knowledge
+- Sensitive to vocabulary mismatch
+- No learning or adaptation over time
 
-These limitations are intentional and documented.
+These limitations are **intentional** and aligned with the project’s educational goals.
 
 ---
 
 ## 9. Future Work
 
-* Replace TF–IDF with word embeddings
-* Compare classical IR vs neural semantic search
-* Add inverted index for scalability
-* Hybrid ranking (Trie + IR + ML)
+- Replace TF–IDF with word embeddings
+- Compare classical IR and neural semantic search approaches
+- Introduce an inverted index for scalability
+- Explore hybrid ranking strategies (Trie + IR + ML)
 
 ---
 
@@ -120,7 +149,13 @@ These limitations are intentional and documented.
 
 This project demonstrates:
 
-* Practical use of Linear Algebra in software systems
-* Core IR concepts and system design
-* Explainable semantic search architecture
-* Engineering decision-making and trade-offs
+- Practical application of **Linear Algebra** in software systems
+- Core **Information Retrieval** concepts and architecture
+- Design of an **explainable semantic search system**
+- Engineering trade-offs and system-level decision making
+
+---
+
+## 11. Dictionary Backbone
+
+The trie-based dictionary component is implemented in Java using a **DLB Trie** and is included in this repository as a **Git submodule**.
