@@ -1,5 +1,6 @@
 import math
 
+
 def cosine_similarity(vec1: dict[str, float], vec2: dict[str, float]) -> float:
     dot_product = 0.0
 
@@ -13,4 +14,10 @@ def cosine_similarity(vec1: dict[str, float], vec2: dict[str, float]) -> float:
     if norm1 == 0 or norm2 == 0:
         return 0.0
 
-    return dot_product / (norm1 * norm2)
+    score = dot_product / (norm1 * norm2)
+
+    # floating point stabilization
+    if abs(score - 1.0) < 1e-9:
+        return 1.0
+
+    return score
