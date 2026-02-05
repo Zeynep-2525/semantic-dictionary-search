@@ -31,8 +31,8 @@ class SearchEngine:
 
         for word, doc_vector in self.document_vectors.items():
             score = cosine_similarity(query_vector, doc_vector)
-            if score > 0:
-                scores.append((word, score))
+            
+            scores.append((word, score))
 
         scores.sort(key=lambda x: x[1], reverse=True)
         return scores[:top_k]
