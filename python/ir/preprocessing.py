@@ -1,14 +1,22 @@
 import re
 from typing import List
 
+
+def preprocess_text(text: str) -> List[str]:
+    """
+    Basic preprocessing for IR pipeline:
+    lowercase + remove non-alphanumeric + tokenize
+    """
+    text = text.lower()
+    text = "".join(ch for ch in text if ch.isalnum() or ch.isspace())
+    return text.split()
+
+
 class TextPreprocessor:
     def __init__(self, stopwords: List[str] | None = None):
         self.stopwords = set(stopwords) if stopwords else set()
 
     def normalize(self, text: str) -> str:
-        """
-        Lowercase + remove non-alphabetic characters
-        """
         text = text.lower()
         text = re.sub(r"[^a-z\s]", "", text)
         return text
@@ -22,10 +30,6 @@ class TextPreprocessor:
         return [t for t in tokens if t not in self.stopwords]
 
     def preprocess(self, text: str) -> str:
-        """
-        Full preprocessing pipeline:
-        raw text -> cleaned string
-        """
         text = self.normalize(text)
         tokens = self.tokenize(text)
         tokens = self.remove_stopwords(tokens)
