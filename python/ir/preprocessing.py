@@ -9,7 +9,11 @@ def preprocess_text(text: str) -> List[str]:
     """
     text = text.lower()
     text = "".join(ch for ch in text if ch.isalnum() or ch.isspace())
-    return text.split()
+    tokens = text.split()
+
+    # naive singularization
+    tokens = [t[:-1] if t.endswith("s") else t for t in tokens]
+    return tokens
 
 
 class TextPreprocessor:
