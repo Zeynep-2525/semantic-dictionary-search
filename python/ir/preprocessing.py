@@ -2,18 +2,22 @@ import re
 from typing import List
 
 
-def preprocess_text(text: str) -> List[str]:
-    """
-    Basic preprocessing for IR pipeline:
-    lowercase + remove non-alphanumeric + tokenize
-    """
+def preprocess_text(text: str) -> list[str]:
     text = text.lower()
-    text = "".join(ch for ch in text if ch.isalnum() or ch.isspace())
+    text = ''.join(ch for ch in text if ch.isalnum() or ch.isspace())
     tokens = text.split()
 
-    # naive singularization
-    tokens = [t[:-1] if t.endswith("s") else t for t in tokens]
-    return tokens
+    normalized = []
+    for t in tokens:
+        if t.endswith("es"):
+            normalized.append(t[:-2])
+        elif t.endswith("s"):
+            normalized.append(t[:-1])
+        else:
+            normalized.append(t)
+
+    return normalized
+
 
 
 class TextPreprocessor:
