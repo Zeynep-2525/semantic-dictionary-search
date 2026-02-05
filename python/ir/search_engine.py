@@ -1,6 +1,6 @@
-from preprocessing import preprocess_text
-from tfidf import TfidfVectorizer
-from cosine_similarity import cosine_similarity
+from ir.preprocessing import preprocess_text
+from ir.tfidf import TfidfVectorizer
+from ir.cosine_similarity import cosine_similarity
 
 
 class SearchEngine:
